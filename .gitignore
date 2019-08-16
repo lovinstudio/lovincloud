@@ -743,3 +743,7 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
+/lovincloud.iml
+/lovin-feign-client/target/
+/lovin-feign-client/lovin-feign-client.iml
+/lovin-feign-client/target/classes/
