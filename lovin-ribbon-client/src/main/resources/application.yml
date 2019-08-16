@@ -3,7 +3,13 @@ server:
 spring:
   application:
     name: lovinribbonclient     # 服务名称
+  security:
+    basic:
+      enabled: true
+    user:
+      name: lovin
+      password: ${REGISTRY_SERVER_PASSWORD:lovin}
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8881/eureka/   # 注册到的eureka服务地址
+      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址

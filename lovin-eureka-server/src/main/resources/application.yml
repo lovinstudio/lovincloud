@@ -1,6 +1,12 @@
 spring:
   application:
     naem: lovineurkaserver  # 服务模块名称
+  security:
+    basic:
+      enabled: true
+    user:
+      name: lovin
+      password: ${REGISTRY_SERVER_PASSWORD:lovin}
 server:
   port: 8881  # 设置的eureka端口号
 eureka:
@@ -10,4 +16,4 @@ eureka:
     registerWithEureka: false  #表示是否将自己注册到Eureka Server，默认为true。由于当前应用就是Eureka Server，故而设置为false
     fetchRegistry: false  #表示是否从Eureka Server获取注册信息，默认为true。因为这是一个单点的Eureka Server，不需要同步其他的Eureka Server节点的数据，故而设置为false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/   #Eureka server地址，查询服务和注册服务都需要依赖这个地址，多个地址可用逗号（英文的）分割
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/   #Eureka server地址，查询服务和注册服务都需要依赖这个地址，多个地址可用逗号（英文的）分割

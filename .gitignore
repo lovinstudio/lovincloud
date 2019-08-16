@@ -747,3 +747,4 @@ buildNumber.properties
 /lovin-feign-client/target/
 /lovin-feign-client/lovin-feign-client.iml
 /lovin-feign-client/target/classes/
+/.idea/
