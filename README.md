@@ -1,6 +1,7 @@
 # lovinCloud 
 
 * 一个简单springcloud的实践
+* springboot-admin监控springcloud集群，并且用spring-boot-starter-security做了安全
 
 
 ---
@@ -11,6 +12,8 @@
 * spring-cloud-starter-netflix-ribbon
 * spring-cloud-starter-openfeign
 * spring-cloud-starter-hystrix
+* spring-boot-admin-starter-client
+* spring-boot-admin-starter-server
 
 ## Tips
 
