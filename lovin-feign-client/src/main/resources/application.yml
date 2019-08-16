@@ -13,6 +13,20 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: lovin
+      user.password: lovin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
 feign:
   hystrix:
     enabled: true
