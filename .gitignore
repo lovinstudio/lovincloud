@@ -1,0 +1,15 @@
+
+.gitignore
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/.gitignore
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/vcs.xml
+lovin-eureka-client/
+lovin-eureka-server/
+lovin-ribbon-client/
+lovincloud.iml
+lovinfeignclient/
+pom.xml
