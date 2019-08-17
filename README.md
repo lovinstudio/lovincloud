@@ -20,3 +20,5 @@
 * 为了测试负载均衡，我们可以用idea启动多个eurekaclient
 
 ![注册中心](./static/images/注册中心.png)
+![监控概览](./static/images/wallboard.png)
+![详情](./static/images/detail.png)
