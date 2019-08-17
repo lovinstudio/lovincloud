@@ -9,6 +9,23 @@ spring:
     user:
       name: lovin
       password: ${REGISTRY_SERVER_PASSWORD:lovin}
+  mail:
+    host: smtp.163.com
+    username: zzlvexf@163.com
+    password: yourpassword
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+          required: true
+  boot:
+    admin:
+      notify:
+        mail:
+          from: zzlvexf@163.com
+          to: zzlvexf@163.com
 eureka:
   instance:
     leaseRenewalIntervalInSeconds: 10
