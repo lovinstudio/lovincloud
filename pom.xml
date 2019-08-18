@@ -25,11 +25,13 @@
         <module>lovin-ribbon-client</module>
         <module>lovin-feign-client</module>
         <module>lovin-admin-server</module>
+        <module>lovin-cloud-zuul</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+        <java.version>1.8</java.version>
     </properties>
 
     <dependencies>

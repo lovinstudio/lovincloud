@@ -1,5 +1,7 @@
 package com.eelve.lovin.controller;
 
+import com.eelve.lovin.config.ServerConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+    @Autowired
+    ServerConfig serverConfig;
+
     @RequestMapping("hello")
     public String hello(){
-        return HelloController.class.getName()+ "8802";
+        return serverConfig.getUrl()+"###"+ HelloController.class.getName();
     }
 }

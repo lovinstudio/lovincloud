@@ -1,0 +1,37 @@
+server:
+  port: 8882   # 服务端口号
+spring:
+  application:
+    name: lovincloudzuul     # 服务名称
+  security:
+    basic:
+      enabled: true
+    user:
+      name: lovin
+      password: ${REGISTRY_SERVER_PASSWORD:lovin}
+zuul:
+  routes:
+    api-ribbon:
+      path: /api-ribbon/**
+      serviceId: lovinribbonclient
+    api-feign:
+      path: /api-feign/**
+      serviceId: lovinfeignclient
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: lovin
+      user.password: lovin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
