@@ -26,6 +26,7 @@
         <module>lovin-feign-client</module>
         <module>lovin-admin-server</module>
         <module>lovin-cloud-zuul</module>
+        <module>lovin-config-server</module>
     </modules>
 
     <properties>

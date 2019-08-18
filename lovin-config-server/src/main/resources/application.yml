@@ -1,0 +1,36 @@
+server:
+  port: 8886   # 服务端口号
+spring:
+  application:
+    name: lovinconfigserver     # 服务名称
+  security:
+    basic:
+      enabled: true
+    user:
+      name: lovin
+      password: ${REGISTRY_SERVER_PASSWORD:lovin}
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/lovinstudio/lovincloud
+          search-paths: lovin-config-repo
+      label: master
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: lovin
+      user.password: lovin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
