@@ -3,5 +3,12 @@ spring:
     config:
       name: lovin-config
       profile: dev
-      uri: http://localhost:8886/
-      label: master
+      #uri: http://localhost:8886/
+      #label: master
+      discovery:
+        enabled: true
+        service-id: lovinconfigserver
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注意在高可用的时候需要见注册中心配置移到该文件中，在application.yml中见会读取不到配置

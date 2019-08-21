@@ -9,10 +9,10 @@ spring:
     user:
       name: lovin
       password: ${REGISTRY_SERVER_PASSWORD:lovin}
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
