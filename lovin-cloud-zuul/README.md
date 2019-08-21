@@ -191,3 +191,112 @@ public class MyFilter extends ZuulFilter {
 2019-08-18 13:00:32.222  INFO 3132 --- [trap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 
 ~~~
+
+## 添加token从配置文件中读取
+
+- 首先添加spring-cloud-starter-config
+~~~
+  <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+        <version>2.1.3.RELEASE</version>
+    </dependency>
+~~~
+- 添加连接config-service的配置，注意必须在**bootstrap.yml**中
+~~~
+spring:
+  cloud:
+    config:
+      name: lovin-config
+      profile: dev
+      uri: http://localhost:8886/
+      label: master
+
+    #spring.application.name：对应{application}部分
+    #spring.cloud.config.profile：对应{profile}部分
+    #spring.cloud.config.label：对应git的分支。如果配置中心使用的是本地存储，则该参数无用
+    #spring.cloud.config.uri：配置中心的具体地址
+    #spring.cloud.config.discovery.service-id：指定配置中心的service-id，便于扩展为高可用配置集群。
+~~~
+- 修改过滤规则
+~~~
+package com.eelve.lovin.filter;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * @ClassName MyFilter
+ * @Description TDO
+ * @Author zhao.zhilue
+ * @Date 2019/8/18 12:44
+ * @Version 1.0
+ **/
+@Component
+@RefreshScope // 使用该注解的类，会在接到SpringCloud配置中心配置刷新的时候，自动将新的配置更新到该类对应的字段中。
+@Slf4j
+public class MyFilter extends ZuulFilter {
+
+    @Value("${lovin.token}")
+    private String token;
+
+    @Override
+    public String filterType() {
+        return "pre";
+    }
+
+    @Override
+    public int filterOrder() {
+        return 0;
+    }
+
+    @Override
+    public boolean shouldFilter() {
+        return true;
+    }
+
+    @Override
+    public Object run() throws ZuulException {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
+        Object accessToken = request.getParameter("token");
+        if(accessToken == null) {
+            log.warn("token is empty");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(401);
+            try {
+                ctx.getResponse().getWriter().write("token is empty");
+            }catch (Exception e){}
+
+            return null;
+        }else if(!accessToken.equals(token)){
+            log.warn("token is not correct");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(403);
+            try {
+                ctx.getResponse().getWriter().write("token is not correct");
+            }catch (Exception e){}
+
+            return null;
+        }
+        log.info("ok");
+        return null;
+    }
+}
+~~~
+- 然后依次启动lovin-eureka-server，lovin-config-server，lovin-feign-client，lovin-cloud-zuul，下面是效果图
+![7](images/7.png)
+
+由于传入的token和配置文件中的token不一致，所以提示token不正确。
+
+![8](images/8.png)
+
+由于没有启动具体的服务端，这里的hystrix起作用了。

@@ -4,6 +4,8 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +18,13 @@ import javax.servlet.http.HttpServletRequest;
  * @Version 1.0
  **/
 @Component
+@RefreshScope // 使用该注解的类，会在接到SpringCloud配置中心配置刷新的时候，自动将新的配置更新到该类对应的字段中。
 @Slf4j
 public class MyFilter extends ZuulFilter {
+
+    @Value("${lovin.token}")
+    private String token;
+
     @Override
     public String filterType() {
         return "pre";
@@ -45,6 +52,15 @@ public class MyFilter extends ZuulFilter {
             ctx.setResponseStatusCode(401);
             try {
                 ctx.getResponse().getWriter().write("token is empty");
+            }catch (Exception e){}
+
+            return null;
+        }else if(!accessToken.equals(token)){
+            log.warn("token is not correct");
+            ctx.setSendZuulResponse(false);
+            ctx.setResponseStatusCode(403);
+            try {
+                ctx.getResponse().getWriter().write("token is not correct");
             }catch (Exception e){}
 
             return null;
