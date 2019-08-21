@@ -54,7 +54,8 @@ spring:
 
 ## 下面是具体的截图：
 
-* 访问地址：http://chirius:8886/lovin-config/dev。**这里有一点疑问，我通过http://chirius:8886/lovin-config/dev/去访问是一直不成功的，但是在换成其他github上面别人的配置仓库又是可以直接访问的**
+* 访问地址：http://chirius:8886/lovin-config/dev。
+**这里有一点疑问，我通过http://localhost:8886/lovin-config/dev/去访问是一直不成功的，但是在换成其他github上面别人的配置仓库又是可以直接访问的**
 * 结果原始数据：
 ~~~
 {"name":"lovin-config","profiles":["dev"],"label":null,"version":"f0aeca26887490e3bcb8be317d4dfb378313a76f","state":null,"propertySources":[{"name":"https://github.com/lovinstudio/lovincloud/lovin-config-repo/lovin-config-dev.properties","source":{"lovin.token":"lovin"}}]}
