@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: lovin-config
+      profile: dev
+      uri: http://localhost:8886/
+      label: master
