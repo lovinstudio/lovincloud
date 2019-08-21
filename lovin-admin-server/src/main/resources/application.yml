@@ -12,7 +12,7 @@ spring:
   mail:
     host: smtp.163.com
     username: zzlvexf@163.com
-    password: eelve703408
+    password: yourpassword
     properties:
       mail:
         smtp:
