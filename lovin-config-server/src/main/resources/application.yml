@@ -16,6 +16,11 @@ spring:
           uri: https://github.com/lovinstudio/lovincloud
           search-paths: lovin-config-repo
       label: master
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 eureka:
   client:
     serviceUrl:

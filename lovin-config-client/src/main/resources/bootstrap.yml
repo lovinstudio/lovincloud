@@ -8,6 +8,9 @@ spring:
       discovery:
         enabled: true
         service-id: lovinconfigserver
+    bus:
+      trace:
+        enabled: true
 eureka:
   client:
     serviceUrl:
