@@ -13,6 +13,11 @@ spring:
 #  client:
 #    serviceUrl:
 #      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
