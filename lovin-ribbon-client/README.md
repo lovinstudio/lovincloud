@@ -128,4 +128,4 @@ Spring Boot的actuator（健康监控）功能提供了很多监控所需的接�
 点击 Monitor Stream 按钮开启监控
 ![1](images/dashboard.png)
 
-
+![1](images/7.png)
