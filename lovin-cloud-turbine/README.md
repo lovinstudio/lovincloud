@@ -111,4 +111,5 @@ spring:
     password: guest
 ~~~
 ## 然后重启服务之后，就可以再次看到监控详情
+![注册中心](images/19082602.png)
 ![聚合监控结果](images/19082601.png)
