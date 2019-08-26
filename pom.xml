@@ -28,6 +28,7 @@
         <module>lovin-cloud-zuul</module>
         <module>lovin-config-server</module>
         <module>lovin-config-client</module>
+        <module>lovin-cloud-turbine</module>
     </modules>
 
     <properties>

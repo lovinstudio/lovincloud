@@ -23,7 +23,7 @@ public class HelloService {
      * ThreadPoolKey：对线程池或信号量分组，虽然访问的依赖业务上都是同一个组，但是需要在资源上做隔离时，可使用ThreadPoolKey区分
      * @return
      */
-    @HystrixCommand(fallbackMethod = "errorFallback")
+    @HystrixCommand(fallbackMethod = "errorFallback",groupKey = "ribbonHello")
     public String getHello() {
         return restTemplate.getForObject("http://lovineurkaclient/hello",String.class);
     }
