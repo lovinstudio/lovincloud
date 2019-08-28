@@ -1,0 +1,37 @@
+server:
+  port: 8808   # 服务端口号
+spring:
+  application:
+    name: lovincloudturbine     # 服务名称
+  security:
+    basic:
+      enabled: true
+    user:
+      name: lovin
+      password: ${REGISTRY_SERVER_PASSWORD:lovin}
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://lovin:lovin@localhost:8881/eureka/   # 注册到的eureka服务地址
+  instance:
+    leaseRenewalIntervalInSeconds: 10
+    health-check-url-path: /actuator/health
+    metadata-map:
+      user.name: lovin
+      user.password: lovin
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+turbine:
+  aggregator:
+    clusterConfig: default   # 指定聚合哪些集群，多个使用","分割，默认为default。可使用http://.../turbine.stream?cluster={clusterConfig之一}访问
+  appConfig: lovinfeignclient,lovinribbonclient  ### 配置Eureka中的serviceId列表，表明监控哪些服务
+  clusterNameExpression: new String("default")
+  # 1. clusterNameExpression指定集群名称，默认表达式appName；此时：turbine.aggregator.clusterConfig需要配置想要监控的应用名称
+  # 2. 当clusterNameExpression: default时，turbine.aggregator.clusterConfig可以不写，因为默认就是default
+  # 3. 当clusterNameExpression: metadata['cluster']时，假设想要监控的应用配置了eureka.instance.metadata-map.cluster: ABC，则需要配置，同时turbine.aggregator.clusterConfig: ABC
