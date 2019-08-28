@@ -24,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
  **/
 @SpringBootApplication
 @EnableHystrix
+@EnableCircuitBreaker
 @EnableDiscoveryClient
 @EnableHystrixDashboard
 public class LovinRibbonClientApplication {

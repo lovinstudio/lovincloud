@@ -1,6 +1,6 @@
 # lovinCloud 
 
-* Ribbon+Hystrix的服务调用模块
+* 1、 Ribbon+Hystrix的服务调用模块
 
 **ribbon依赖**
 ```xml
@@ -81,7 +81,29 @@ public class HelloService {
 
 ![1](images/hystrix.png)
 
-* Ribbon+Hystrix+Dashboard监控服务调用情况
+3.配置熔断规则
+    3.1 在启动类添加注解：@EnableCircuitBreaker 来开启融断
+    3.2 在注解中配置熔断器参数commandProperties
+```java
+    @HystrixCommand(fallbackMethod = "errorFallback",commandProperties = {
+            //设置熔断
+            @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
+            //时间滚动中最小请求参数，只有在一个统计窗口内处理的请求数量达到这个阈值，才会进行熔断与否的判断
+            @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10"),
+            //休眠时间窗
+            @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "20000"),
+            //错误百分比，判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
+            @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "40")
+    })
+    public String getHello() {
+        return restTemplate.getForObject("http://lovineurkaclient/hello",String.class);
+    }
+```
+
+当调用超过设定的失败数时会触发熔断，如图：
+![1](images/break.png)
+
+* 2、 Ribbon+Hystrix+Dashboard监控服务调用情况
 
 1.**添加actuator依赖**
 ```xml
