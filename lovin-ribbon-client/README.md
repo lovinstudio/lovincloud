@@ -3,13 +3,16 @@
 * 1、 Ribbon+Hystrix的服务调用模块
 
 **ribbon依赖**
+
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
 </dependency>       
 ```
+
 **hystrix依赖**
+
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -17,7 +20,9 @@
     <version>1.4.7.RELEASE</version>
 </dependency>
 ```
+
 1.在启动类中加入@EnableCircuitBreaker 或者 @EnableHystrix用于启用熔断器功能
+
 ```java
 @SpringBootApplication
 @EnableHystrix
@@ -35,7 +40,9 @@ public class LovinRibbonClientApplication {
     }
 }
 ```
+
 2.为需要**容错**的方法添加@HystrixCommand注解，并使用fallbackMethod属性指定回退方法
+
 ```java
 @Service
 public class HelloService {
@@ -78,14 +85,17 @@ public class HelloService {
 }
 ```
 
-
 ![1](images/hystrix.png)
 
 3.配置熔断规则
-    3.1 在启动类添加注解：@EnableCircuitBreaker 来开启融断
-    3.2 在注解中配置熔断器参数commandProperties
-```java
-    @HystrixCommand(fallbackMethod = "errorFallback",commandProperties = {
+
+  3.1 在启动类添加注解：@EnableCircuitBreaker 来开启融断
+    
+  3.2 在注解中配置熔断器参数commandProperties
+
+
+  ```java
+      @HystrixCommand(fallbackMethod = "errorFallback",commandProperties = {
             //设置熔断
             @HystrixProperty(name = "circuitBreaker.enabled", value = "true"),
             //时间滚动中最小请求参数，只有在一个统计窗口内处理的请求数量达到这个阈值，才会进行熔断与否的判断
@@ -94,25 +104,30 @@ public class HelloService {
             @HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "20000"),
             //错误百分比，判断熔断的阈值，默认值50，表示在一个统计窗口内有50%的请求处理失败，会触发熔断
             @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "40")
-    })
-    public String getHello() {
-        return restTemplate.getForObject("http://lovineurkaclient/hello",String.class);
-    }
-```
+      })
+
+      public String getHello() {
+              return restTemplate.getForObject("http://lovineurkaclient/hello",String.class);
+            }
+  ```
 
 当调用超过设定的失败数时会触发熔断，如图：
+
 ![1](images/break.png)
 
 * 2、 Ribbon+Hystrix+Dashboard监控服务调用情况
 
 1.**添加actuator依赖**
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-actuator</artifactId>
 </dependency>
 ```
+
 2.加入依赖后，在yml中配置以下参数：
+
 ```yaml
 management:
   endpoints:
@@ -120,16 +135,19 @@ management:
       exposure:
         include: "*"
 ```
+
 management.endpoints.web.exposure.include这个是用来暴露 endpoints 的。由于 endpoints 中会包含很多敏感信息，除了 health 和 info 两个支持 web 访问外，其他的默认不支持 web 访问。
 Spring Boot的actuator（健康监控）功能提供了很多监控所需的接口，可以对应用系统进行配置查看、相关功能统计等，这里dashboard是需要依赖这个监控输出的json来生成可视化监控的
 
 3.访问：http://localhost:8805/actuator/hystrix.stream
 如果没有请求会一直显示 “ping”。这时候访问一下：http://localhost:8805/hello
 会看到以下内容：
+
 ![1](images/2.png)
 
 
 **添加hystrix-dashboard依赖**
+
 ```xml
 <dependency>
     <groupId>org.springframework.cloud</groupId>
@@ -137,9 +155,11 @@ Spring Boot的actuator（健康监控）功能提供了很多监控所需的接�
     <version>1.3.1.RELEASE</version>
 </dependency>
 ```
+
 4.引入hystrix-dashboard包后，在启动类上加入注解@EnableHystrixDashboard开启监控面板
 
 5.访问：http://localhost:8805/hystrix
+
 ![1](images/3.png)
 
 其中：
@@ -148,6 +168,7 @@ Spring Boot的actuator（健康监控）功能提供了很多监控所需的接�
    3. 轮询监控的延时时间
 
 点击 Monitor Stream 按钮开启监控
+
 ![1](images/dashboard.png)
 
 ![1](images/7.png)

@@ -1,6 +1,7 @@
 # lovincloudzuul 
 
 * 通过网关转发服务,分别到lovinribbonclient进行分发和lovinfeignclient分发
+
 ```yaml
 zuul:
   routes:
@@ -11,6 +12,7 @@ zuul:
       path: /api-feign/**
       serviceId: lovinfeignclient
 ```
+
 * 服务过滤,自定义filter
 
 ~~~java
@@ -70,6 +72,7 @@ public class MyFilter extends ZuulFilter {
     }
 }
 ~~~
+
 ~~~
     filterType：返回一个字符串代表过滤器的类型，在zuul中定义了四种不同生命周期的过滤器类型，具体如下：
         pre：路由之前
@@ -195,6 +198,7 @@ public class MyFilter extends ZuulFilter {
 ## 添加token从配置文件中读取
 
 - 首先添加spring-cloud-starter-config
+
 ~~~
   <dependency>
         <groupId>org.springframework.cloud</groupId>
@@ -202,7 +206,9 @@ public class MyFilter extends ZuulFilter {
         <version>2.1.3.RELEASE</version>
     </dependency>
 ~~~
+
 - 添加连接config-service的配置，注意必须在**bootstrap.yml**中
+
 ~~~
 spring:
   cloud:
@@ -218,7 +224,9 @@ spring:
     #spring.cloud.config.uri：配置中心的具体地址
     #spring.cloud.config.discovery.service-id：指定配置中心的service-id，便于扩展为高可用配置集群。
 ~~~
+
 - 修改过滤规则
+
 ~~~
 package com.eelve.lovin.filter;
 
@@ -292,6 +300,7 @@ public class MyFilter extends ZuulFilter {
     }
 }
 ~~~
+
 - 然后依次启动lovin-eureka-server，lovin-config-server，lovin-feign-client，lovin-cloud-zuul，下面是效果图
 ![7](images/7.png)
 
