@@ -17,7 +17,7 @@
     <packaging>pom</packaging>
 
     <name>lovincloud</name>
-    <url>http://maven.apache.org</url>
+    <url>https://eelve.com</url>
 
     <modules>
         <module>lovin-eureka-server</module>
