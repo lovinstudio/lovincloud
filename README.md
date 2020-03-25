@@ -2,7 +2,7 @@
 
 * 一个简单springcloud的实践
 * springboot-admin监控springcloud集群，并且用spring-boot-starter-security做了安全
-
+* springcloud常用组件使用
 
 ---
 
