@@ -15,6 +15,7 @@
 * spring-cloud-starter-hystrix
 * spring-boot-admin-starter-client
 * spring-boot-admin-starter-server
+* spring-cloud-netflix-turbine
 
 ## Tips
 
