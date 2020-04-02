@@ -24,3 +24,7 @@
 ![注册中心](./static/images/注册中心.png)
 ![监控概览](./static/images/wallboard.png)
 ![详情](./static/images/detail.png)
+
+
+# License
+Released under the [MIT](LICENSE) License.
