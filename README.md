@@ -26,5 +26,17 @@
 ![详情](./static/images/detail.png)
 
 
+## TODOS
+
+- [x]  1.Turbine，聚合监控
+- [x]  2.SpringCloud Config
+- [x]  3.SpringCloud Config+RabbitMQ
+- [ ]  4.SpringBoot-Admin
+- [ ]  5.Sleuth，链式监控
+- [ ]  6.SpringCloud-Getway
+- [ ]  7.漫谈微服务架构：注册中心高可用，架构模式，设计理念
+- [ ]  8.组件深入分析
+
+
 # License
 Released under the [MIT](LICENSE) License.
