@@ -749,3 +749,4 @@ buildNumber.properties
 /lovin-feign-client/target/classes/
 /.idea/
 /.idea/
+/lovin-feign-client/target/
